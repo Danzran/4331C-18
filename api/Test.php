@@ -27,13 +27,13 @@
     
     function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"error":' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
     function returnWithInfo( $testInfo )
 	{
-		$retValue = '{"text":"' . $testinfo . '"}';
+		$retValue = '{"text":"' . $testInfo . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

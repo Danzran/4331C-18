@@ -1,13 +1,19 @@
-const urlBase = 'http://microbialeight825.microbialeight.xyz/api';
-//const urlBase = 'localhost/api';
+//const urlBase = 'http://microbialeight825.microbialeight.xyz/api';
+const urlBase = '/api';
 const extension = 'php';
 
-function clickButton()
-{
-    let url = urlBase + '/Test.' + extension;
+let userID = 0;
+let firstName = "";
+let lastName = "";
 
-    let input = document.getElementById("testinput").value;
-    let tmp = {text:input};
+function doLogin()
+{
+    let url = urlBase + '/Login.' + extension;
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let tmp = {login:username, password:password};
     let payload = JSON.stringify(tmp);
 
     let xhr = new XMLHttpRequest();
@@ -19,8 +25,19 @@ function clickButton()
         {
             if(this.readyState == 4 && this.status == 200)
             {
-                let jsonObj = JSON.parse(xhr.responseText);
-                document.getElementById("buttonResult").innerHTML = jsonObj.text;
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                userId = jsonObject.id;
+
+                if(userId < 1)
+                {
+                    document.getElementById("loginResult").innerHTML = "Invalid username or password.";
+                    return;
+                }
+
+                firstName = jsonObject.firstName;
+                lastName = jsonObject.lastName;
+                document.getElementById("loginResult").innerHTML = "Welcome, " + firstName + " " + lastName + "!";
             }
         }
         xhr.send(payload);
