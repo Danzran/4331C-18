@@ -10,18 +10,19 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Logins WHERE Login=? AND Password =?");
-		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
+		$paddedName = "%" . $inData["name"] . "%";
+		$stmt = $conn->prepare("SELECT ID, FirstName, LastName, Email, Phone, Address FROM Contacts WHERE (LOWER(FirstName) LIKE Lower(?) OR LOWER(LastName) LIKE LOWER(?) OR LOWER(CONCAT(FirstName, ' ', LastName)) LIKE LOWER(?)) AND User_ID = ?");
+		$stmt->bind_param("ssss", $paddedName, $paddedName, $paddedName, $inData["id"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
-		if( $row = $result->fetch_assoc()  )
+		if($arr = $result->fetch_all())
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			returnWithInfo($arr);
 		}
 		else
 		{
-			returnWithError("No Records Found");
+			returnWithError("No records found.");
 		}
 
 		$stmt->close();
@@ -45,9 +46,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo( $resArray)
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = json_encode($resArray);
 		sendResultInfoAsJson( $retValue );
 	}
 	
