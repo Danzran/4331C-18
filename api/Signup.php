@@ -23,8 +23,6 @@
         } 
         else 
         {
-            // Hash the password before storing it
-            $hashedPassword = password_hash($inData["Password"], PASSWORD_DEFAULT);
 
             // Insert the new user into the Logins table
             $stmt = $conn->prepare("INSERT INTO Logins (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
