@@ -17,7 +17,12 @@
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			// Verify the input password with the hashed password, i hashed the password for signup
+			//if (password_verify($inData["password"], $row['Password'])) {
+				returnWithInfo($row['FirstName'], $row['LastName'], $row['ID']);
+			//} else {
+			//	returnWithError("Incorrect Password.");
+			//}
 		}
 		else
 		{
