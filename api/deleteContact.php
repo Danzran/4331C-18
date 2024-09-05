@@ -9,8 +9,20 @@
     } 
     else 
     {
-        //This is currently a skeleton for the delete contact feature
-        //Insert code here
+        //first time with php and idk if this is going to work
+        //used the createContact.php but slightly modified it
+        $stmt = $conn->prepare("DELETE FROM Contacts WHERE (User_ID) Values (?)");
+        $stmt->bind_param("i", $inData["User_ID"]);
+
+        if ($stmt->execute()) 
+        {
+            returnWithInfo("Contact deleted successfully");
+        } 
+        else 
+        {
+            returnWithError("Failed to delete contact: " . $stmt->error);
+        }
+
     }
 
     function getRequestInfo()
