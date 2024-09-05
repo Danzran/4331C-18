@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="test.js"></script>
+    <script src="js/script.js"></script>
   </head>
   <body>
     <div class="login-container center-box">
       <h2>Login</h2>
-      <form action="dashboard.html" method="get">
+      <form>
         <input
           type="text"
           id="username"
@@ -25,8 +25,9 @@
           placeholder="Password"
           required
         />
-        <input type="submit" value="Login" />
+        <input type="button" value="Login" onclick="doLogin()"/>
       </form>
+      <p id="loginResult"></p>
     </div>
   </body>
 </html>
