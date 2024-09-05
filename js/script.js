@@ -11,13 +11,13 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userID + ";expires=" + date.toGMTString();
     console.log("Out: " + document.cookie);
 }
 
 function readCookie()
 {
-	userId = -1;
+	userID = -1;
 	let data = document.cookie;
     console.log("In: " + data);
 	let splits = data.split(",");
@@ -35,11 +35,11 @@ function readCookie()
 		}
 		else if( tokens[0] == "userId" )
 		{
-			userId = parseInt( tokens[1].trim() );
+			userID = parseInt( tokens[1].trim() );
 		}
 	}
 	
-	if( userId < 0 )
+	if( userID < 0 )
 	{
 		window.location.href = "index.html";
 	}
@@ -100,7 +100,6 @@ function doSearch()
 
     let name = document.getElementById("searchName").value;
 
-
     let tmp = {name:name, id:userID};
     let payload = JSON.stringify(tmp);
 
@@ -117,13 +116,11 @@ function doSearch()
 
                 removeElementsByClass("ContactDisplay");
 
+                let parent = document.getElementById("searchResultTable");
                 for(let i = 0; i < jsonObject.length; i++)
                 {
                     let info = jsonObject[i];
-                    let elem = document.createElement("p");
-                    document.body.appendChild(elem);
-                    elem.setAttribute("class", "ContactDisplay");
-                    elem.innerHTML = "Name: " + info[1] + " " + info[2] + " Email: " + info[3] + " Phone: " + info[4] + " Address: " + info[4]; 
+                    makeContactDisplay(info, parent);
                 }
             }
         }
@@ -140,8 +137,46 @@ function removeElementsByClass(className)
     let elements = document.getElementsByClassName(className);
     while(elements.length > 0)
     {
+        elements[0].innerHTML = '';
         elements[0].parentNode.removeChild(elements[0]);
     }
+}
+function makeContactDisplay(info, parent)
+{
+    console.log("Making...");
+    let row = document.createElement("tr");
+    row.className = "ContactDisplay";
+    parent.appendChild(row);
+
+    let name = document.createElement("td");
+    name.innerHTML = info[1] + " " + info[2];
+    row.appendChild(name);
+
+    let email = document.createElement("td");
+    email.innerHTML = info[3];
+    row.appendChild(email);
+
+    let phone = document.createElement("td");
+    phone.innerHTML = info[4];
+    row.appendChild(phone);
+
+    let addy = document.createElement("td");
+    addy.innerHTML = info[5];
+    row.appendChild(addy);
+
+    let controls = document.createElement("td");
+    row.appendChild(controls);
+
+    let edit = document.createElement("a");
+    edit.innerHTML = "Edit | ";
+    controls.appendChild(edit);
+    edit.href = "edit-contact.html";
+
+    let del = document.createElement("a");
+    del.innerHTML = "Delete";
+    controls.appendChild(del);
+    del.href = "#";
+    del.onclick = "deleteRow(this)";
 }
 
 function deleteRow(btn) {

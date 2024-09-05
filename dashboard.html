@@ -9,6 +9,7 @@
       document.addEventListener('DOMContentLoaded', function()
     {
       readCookie();
+      doSearch();
     }, false);
     </script>
     <link rel="stylesheet" href="style.css" />
@@ -16,24 +17,27 @@
   <body>
     <h1>Contact Manager Dashboard</h1>
     <h2 id="welcome"></h2>
+    <input type="text" id="searchName" placeholder="Enter name"><input type="button" onclick="doSearch()" value="Search"><br/>
     <a href="add-contact.html">Add New Contact</a>
     <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
+      <tbody id="searchResultTable">
+        <!-- <tr>
           <td>John Doe</td>
           <td>johndoe@example.com</td>
           <td>
             <a href="edit-contact.html">Edit</a> |
             <a href="#" onclick="deleteRow(this)">Delete</a>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </body>
