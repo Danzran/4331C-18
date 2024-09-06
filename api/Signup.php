@@ -26,7 +26,7 @@
 
             // Insert the new user into the Logins table
             $stmt = $conn->prepare("INSERT INTO Logins (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $inData["FirstName"], $inData["LastName"], $inData["Login"], $hashedPassword);
+            $stmt->bind_param("ssss", $inData["FirstName"], $inData["LastName"], $inData["Login"], $inData["Password"]);
 
             if ($stmt->execute()) 
             {
