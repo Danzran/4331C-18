@@ -9,20 +9,28 @@
     } 
     else 
     {
-        //first time with php and idk if this is going to work
-        //used the createContact.php but slightly modified it
+        // Correct DELETE query using ID and User_ID
         $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND User_ID = ?");
-        $stmt->bind_param("i", $inData["User_ID"]);
+        $stmt->bind_param("ii", $inData["id"], $inData["userId"]);
 
         if ($stmt->execute()) 
         {
-            returnWithInfo("Contact deleted successfully");
+            if ($stmt->affected_rows > 0)
+            {
+                returnWithInfo("Contact deleted successfully");
+            } 
+            else 
+            {
+                returnWithError("No contact found to delete.");
+            }
         } 
         else 
         {
             returnWithError("Failed to delete contact: " . $stmt->error);
         }
 
+        $stmt->close();
+        $conn->close();
     }
 
     function getRequestInfo()
