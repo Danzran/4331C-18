@@ -11,7 +11,7 @@
     {
         // Correct DELETE query using ID and User_ID
         $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND User_ID = ?");
-        $stmt->bind_param("ii", $inData["id"], $inData["userId"]);
+        $stmt->bind_param("ii", $inData["ID"], $inData["User_ID"]);
 
         if ($stmt->execute()) 
         {
