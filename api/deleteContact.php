@@ -11,7 +11,7 @@
     {
         //first time with php and idk if this is going to work
         //used the createContact.php but slightly modified it
-        $stmt = $conn->prepare("DELETE FROM Contacts WHERE (User_ID) Values (?)");
+        $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND User_ID = ?");
         $stmt->bind_param("i", $inData["User_ID"]);
 
         if ($stmt->execute()) 
