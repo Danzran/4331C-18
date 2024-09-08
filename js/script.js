@@ -45,7 +45,11 @@ function readCookie()
 	}
     else
     {
-        document.getElementById("welcome").innerHTML = "Welcome, " + firstName + " " + lastName + ". ";
+        let welcome = document.getElementById("welcome");
+        if(welcome)
+        {
+            welcome.innerHTML = "Welcome, " + firstName + " " + lastName + ". ";
+        }
     }
 }
 function doLogin()
@@ -69,9 +73,9 @@ function doLogin()
             {
                 let jsonObject = JSON.parse(xhr.responseText);
 
-                userId = jsonObject.id;
+                userID = jsonObject.id;
 
-                if(userId < 1)
+                if(userID < 1)
                 {
                     document.getElementById("loginResult").innerHTML = "Invalid username or password.";
                     return;
@@ -79,7 +83,6 @@ function doLogin()
 
                 firstName = jsonObject.firstName;
                 lastName = jsonObject.lastName;
-                userID = jsonObject.id;
 
                 saveCookie();
 
@@ -91,6 +94,72 @@ function doLogin()
     catch(err)
     {
         document.getElementById("loginResult").innerHTML = err.message;
+    }
+}
+function addContact()
+{
+    let url = urlBase + "/Create." + extension;
+
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+
+    if(!firstName || !lastName || !email || !phone || !address)
+    {
+        document.getElementById("addResult").innerHTML = "Please fill out all fields!";
+        return;
+    }
+
+    let tmp = {userID: userID, firstName: firstName, lastName: lastName, email: email, phone: phone, address: address};
+    let payload = JSON.stringify(tmp);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                document.getElementById("addResult").innerHTML = "Contact created successfully."
+            }
+        }
+        xhr.send(payload);
+    }
+    catch(err)
+    {
+        document.getElementById("loginResult").innerHTML = "Could not create contact!";
+    }
+    
+}
+function deleteContact(contactID)
+{
+    let url = urlBase + '/Delete.' + extension;
+
+    let tmp = {userID: userID, contactID: contactID};
+    let payload = JSON.stringify(tmp);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                alert("Contact deleted.");
+                doSearch();
+            }
+        }
+        xhr.send(payload);
+    }
+    catch(err)
+    {
+        alert("Error deleting contact.")
     }
 }
 
@@ -176,11 +245,14 @@ function makeContactDisplay(info, parent)
     del.innerHTML = "Delete";
     controls.appendChild(del);
     del.href = "#";
-    del.onclick = "deleteRow(this)";
+    del.onclick = function() 
+    { 
+        deleteContact(info[0]);
+        
+    };
 }
 
-function deleteRow(btn) {
-    var row = btn.parentNode.parentNode;
-    row.parentNode.removeChild(row);
-    alert("Row deleted!");
+function returnToDash()
+{
+    window.location.href = "dashboard.html"
 }

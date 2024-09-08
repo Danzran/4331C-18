@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Contact</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="js/script.js"></script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function()
+    {
+      readCookie();
+    }, false);
+    </script>
   </head>
   <body>
+    <input type="button" value="Return to Dashboard" onclick="returnToDash()"/>
     <div class="form-container center-box">
       <h2>Add New Contact</h2>
       <form action="dashboard.html" method="post">
-        <input type="text" name="name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email Address" required />
-        <input type="submit" value="Add Contact" />
+        <input type="text" name="name" id="firstName" placeholder="First Name" required />
+        <input type="text" name="name" id="lastName" placeholder="Last Name" required />
+        <input type="email" name="email" id="email" placeholder="Email Address" required />
+        <input type="text" name="name" id="phone" placeholder="Phone Number" required />
+        <input type="text" name="name" id="address" placeholder="Address" required />
+        <input type="button" value="Add Contact" onclick="addContact()"/>
+        <span id="addResult"></span>
       </form>
     </div>
   </body>
