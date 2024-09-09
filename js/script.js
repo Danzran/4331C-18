@@ -5,13 +5,19 @@ const extension = 'php';
 let userID = 0;
 let firstName = "";
 let lastName = "";
+let cID = 0;
+let cFirstName = "";
+let cLastName = "";
+let cEmail = "";
+let cPhone = "";
+let cAddress = "";
 
 function saveCookie()
 {
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userID + ";expires=" + date.toGMTString();
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userID +  ",cID=" + cID + ",cfirstName=" + cFirstName + ",cLastName=" + cLastName + ",cEmail=" + cEmail + ",cPhone=" + cPhone + ",cAddress=" + cAddress + ";expires=" + date.toGMTString();
     console.log("Out: " + document.cookie);
 }
 
@@ -37,6 +43,30 @@ function readCookie()
 		{
 			userID = parseInt( tokens[1].trim() );
 		}
+        else if( tokens[0] == "cId" )
+        {
+            cID = parseInt( tokens[1].trim() );
+        }
+        else if( tokens[0] == "cFirstName" )
+        {
+            cfirstName = tokens[1];
+        }
+        else if( tokens[0] == "cLastName" )
+        {
+            cLastName = tokens[1];
+        }
+        else if( tokens[0] == "cEmail" )
+        {
+            cEmail = tokens[1];
+        }
+        else if( tokens[0] == "cPhone" )
+        {
+            cPhone = tokens[1];
+        }
+        else if( tokens[0] == "cAddress" )
+        {
+            cAddress = tokens[1];
+        }
 	}
 	
 	if( userID < 0 )
@@ -200,7 +230,6 @@ function deleteContact(contactID)
         alert("Error deleting contact.")
     }
 }
-
 function doSearch()
 {
     let url = urlBase + '/Search.' + extension;
@@ -279,6 +308,9 @@ function makeContactDisplay(info, parent)
     controls.appendChild(edit);
     edit.href = "edit-contact.html";
     edit.onclick = function()
+    {
+
+    };
 
     let del = document.createElement("a");
     del.innerHTML = "Delete";
