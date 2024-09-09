@@ -279,9 +279,6 @@ function makeContactDisplay(info, parent)
     controls.appendChild(edit);
     edit.href = "edit-contact.html";
     edit.onclick = function()
-    {
-        editContact(info[0]);
-    };
 
     let del = document.createElement("a");
     del.innerHTML = "Delete";
