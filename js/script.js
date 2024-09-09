@@ -135,6 +135,44 @@ function addContact()
     }
     
 }
+function editContact(contactID)
+{
+    let url = urlBase + '/Edit.' + extension;
+
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+
+    if(!firstName || !lastName || !email || !phone || !address)
+    {
+        document.getElementById("editResult").innerHTML = "Please fill out all fields!";
+        return;
+    }
+    
+    let tmp = {userID: userID, firstName: firstName, lastName: lastName, email: email, phone: phone, address: address};
+    let payload = JSON.stringify(tmp);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                document.getElementById("editResult").innerHTML = "Contact updated successfully."
+            }
+        }
+        xhr.send(payload);
+    }
+    catch(err)
+    {
+        document.getElementById("loginResult").innerHTML = "Could not update contact!";
+    }
+}
 function deleteContact(contactID)
 {
     let url = urlBase + '/Delete.' + extension;
@@ -240,6 +278,10 @@ function makeContactDisplay(info, parent)
     edit.innerHTML = "Edit | ";
     controls.appendChild(edit);
     edit.href = "edit-contact.html";
+    edit.onclick = function()
+    {
+        editContact(info[0]);
+    };
 
     let del = document.createElement("a");
     del.innerHTML = "Delete";
