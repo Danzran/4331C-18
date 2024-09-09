@@ -10,9 +10,13 @@
     <div class="form-container center-box">
       <h2>Edit Contact</h2>
       <form action="dashboard.html" method="post">
-        <input type="text" name="name" value="John Doe" required />
-        <input type="email" name="email" value="johndoe@example.com" required />
-        <input type="submit" value="Save Changes" />
+        <input type="text" name="name" id="firstName" placeholder="First Name" required />
+        <input type="text" name="name" id="lastName" placeholder="Last Name" required />
+        <input type="email" name="email" id="email" placeholder="Email Address" required />
+        <input type="text" name="name" id="phone" placeholder="Phone Number" required />
+        <input type="text" name="name" id="address" placeholder="Address" required />
+        <input type="button" value="Edit Contact" onclick="editContact()"/>
+        <span id="editResult"></span>
       </form>
     </div>
   </body>
