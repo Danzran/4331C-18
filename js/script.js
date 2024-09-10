@@ -17,7 +17,7 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userID +  ",cID=" + cID + ",cfirstName=" + cFirstName + ",cLastName=" + cLastName + ",cEmail=" + cEmail + ",cPhone=" + cPhone + ",cAddress=" + cAddress + ";expires=" + date.toGMTString();
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userID +  ",cID=" + cID + ",cFirstName=" + cFirstName + ",cLastName=" + cLastName + ",cEmail=" + cEmail + ",cPhone=" + cPhone + ",cAddress=" + cAddress + ";expires=" + date.toGMTString();
     console.log("Out: " + document.cookie);
 }
 
@@ -43,13 +43,14 @@ function readCookie()
 		{
 			userID = parseInt( tokens[1].trim() );
 		}
-        else if( tokens[0] == "cId" )
+        else if( tokens[0] == "cID" )
         {
             cID = parseInt( tokens[1].trim() );
+            console.log("ID: " + cID);
         }
         else if( tokens[0] == "cFirstName" )
         {
-            cfirstName = tokens[1];
+            cFirstName = tokens[1];
         }
         else if( tokens[0] == "cLastName" )
         {
@@ -125,6 +126,10 @@ function doLogin()
     {
         document.getElementById("loginResult").innerHTML = err.message;
     }
+}
+function returnToLogin()
+{
+    window.location.href = "index.html";
 }
 function doSignup(){
     let url = urlBase + '/Signup.' + extension;
@@ -225,7 +230,7 @@ function editContact(contactID)
         return;
     }
     
-    let tmp = {userID: userID, firstName: firstName, lastName: lastName, email: email, phone: phone, address: address};
+    let tmp = {userID: userID, id: cID, firstName: firstName, lastName: lastName, email: email, phone: phone, address: address};
     let payload = JSON.stringify(tmp);
 
     let xhr = new XMLHttpRequest();
@@ -273,6 +278,14 @@ function deleteContact(contactID)
     {
         alert("Error deleting contact.")
     }
+}
+function loadEdit()
+{
+    document.getElementById("firstName").value = cFirstName;
+    document.getElementById("lastName").value = cLastName;
+    document.getElementById("email").value = cEmail;
+    document.getElementById("phone").value = cPhone;
+    document.getElementById("address").value = cAddress;
 }
 function doSearch()
 {
@@ -350,10 +363,17 @@ function makeContactDisplay(info, parent)
     let edit = document.createElement("a");
     edit.innerHTML = "Edit | ";
     controls.appendChild(edit);
-    edit.href = "edit-contact.html";
+    //edit.href = "edit-contact.html";
     edit.onclick = function()
     {
-
+        cID = info[0];
+        cFirstName = info[1];
+        cLastName = info[2];
+        cEmail = info[3];
+        cPhone = info[4];
+        cAddress = info[5];
+        saveCookie();
+        window.location.href = "edit-contact.html"
     };
 
     let del = document.createElement("a");

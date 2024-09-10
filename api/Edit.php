@@ -17,7 +17,7 @@
             $inData["phone"], 
             $inData["address"], 
             $inData["id"], 
-            $inData["userId"]
+            $inData["userID"]
         );
 
         if ($stmt->execute()) 
