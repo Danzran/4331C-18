@@ -136,12 +136,13 @@ function doSignup(){
     let confirmpassword = document.getElementById("confirm-password-input");
 
     if(!firstname || !lastname || !username || !password || !confirmpassword){
-        alert("Please fill out all fields");
+        document.getElementById("signupResult").innerHTML = "Please fill out all fields";
         return;
     }
 
     if(password !== confirmpassword){
-        alert("Passwords do not match");
+        document.getElementById("signupResult").innerHTML = "Passwords do not match";
+        return;
     }
 
     let tmp = {FirstName: firstname, LastName: lastname, Login: username, Password: password};
@@ -150,27 +151,24 @@ function doSignup(){
     let xhr = newHTTPRequest();
     xhr.open("POST",url,true);
     xhr.setRequestHeader("Content-type", "applications/json; charset=UTF-8");
-    try{
-        xhr.onreadystatechange = function(){
-            if(this.readyState == 4){
-                if(this.status == 200){
-                    let jsonObject = JSON.parse(xhr.responseText);
+    
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4){
+            if(this.status == 200){
+                let response = JSON.parse(xhr.responseText);
 
-                    if(jsonObject.error){
-                        alert(jsonObject.error)
-                    }else {
-                        alert(jsonObject.message);
+                if(response.error){
+                        document.getElementById("signupResult").innerHTML = response.error;
+                }else {
+                    document.getElementById("signupResult").innerHTML = response.message;
+                    if(response.message === "User registered successfully"){
                         window.location.href = "login.html"
+                        }
                     }
-                } else{
-                    alert("An error occurred during the request.")
-                }
+                } 
             }
         };
-        xhr.send(payload);
-    }catch(err) {
-        alert("Request failed" + err.message);
-    }
+    xhr.send(payload);
 }
 function addContact()
 {
