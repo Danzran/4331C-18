@@ -126,6 +126,52 @@ function doLogin()
         document.getElementById("loginResult").innerHTML = err.message;
     }
 }
+function doSignup(){
+    let url = urlBase + '/Signup' + extension;
+
+    let firstname = document.getElementById("firstname-input").value;
+    let lastname = document.getElementById("lastname-input").value;
+    let username = document.getElementById("username-input").value;
+    let password = document.getElementById("password-input").value;
+    let confirmpassword = document.getElementById("confirm-password-input");
+
+    if(!firstname || !lastname || !username || !password || !confirmpassword){
+        alert("Please fill out all fields");
+        return;
+    }
+
+    if(password !== confirmpassword){
+        alert("Passwords do not match");
+    }
+
+    let tmp = {FirstName: firstname, LastName: lastname, Login: username, Password: password};
+    let payload = JSOM.stringify(tmp);
+
+    let xhr = newHTTPRequest();
+    xhr.open("POST",url,true);
+    xhr.setRequestHeader("Content-type", "applications/json; charset=UTF-8");
+    try{
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4){
+                if(this.status == 200){
+                    let jsonObject = JSON.parse(xhr.responseText);
+
+                    if(jsonObject.error){
+                        alert(jsonObject.error)
+                    }else {
+                        alert(jsonObject.message);
+                        window.location.href = "login.html"
+                    }
+                } else{
+                    alert("An error occurred during the request.")
+                }
+            }
+        };
+        xhr.send(payload);
+    }catch(err) {
+        alert("Request failed" + err.message);
+    }
+}
 function addContact()
 {
     let url = urlBase + "/Create." + extension;
