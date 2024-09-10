@@ -148,7 +148,7 @@ function doSignup(){
     let tmp = {FirstName: firstname, LastName: lastname, Login: username, Password: password};
     let payload = JSON.stringify(tmp);
 
-    let xhr = newHTTPRequest();
+    let xhr = new XMLHTTPRequest();
     xhr.open("POST",url,true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     
