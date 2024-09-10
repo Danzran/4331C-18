@@ -127,7 +127,7 @@ function doLogin()
     }
 }
 function doSignup(){
-    let url = urlBase + '/Signup' + extension;
+    let url = urlBase + '/Signup.' + extension;
 
     let firstname = document.getElementById("firstname-input").value;
     let lastname = document.getElementById("lastname-input").value;
