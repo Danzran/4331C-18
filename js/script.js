@@ -133,7 +133,7 @@ function doSignup(){
     let lastname = document.getElementById("lastname-input").value;
     let username = document.getElementById("username-input").value;
     let password = document.getElementById("password-input").value;
-    let confirmpassword = document.getElementById("confirm-password-input");
+    let confirmpassword = document.getElementById("confirm-password-input").value;
 
     if(!firstname || !lastname || !username || !password || !confirmpassword){
         document.getElementById("signupResult").innerHTML = "Please fill out all fields";
@@ -146,11 +146,11 @@ function doSignup(){
     }
 
     let tmp = {FirstName: firstname, LastName: lastname, Login: username, Password: password};
-    let payload = JSOM.stringify(tmp);
+    let payload = JSON.stringify(tmp);
 
     let xhr = newHTTPRequest();
     xhr.open("POST",url,true);
-    xhr.setRequestHeader("Content-type", "applications/json; charset=UTF-8");
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     
     xhr.onreadystatechange = function(){
         if(this.readyState == 4){
