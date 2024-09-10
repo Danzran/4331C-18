@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Create New Account</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="js/script.js"></script>
   </head>
   <body>
     <div class="login-container center-box">
@@ -44,8 +45,9 @@
           placeholder="Confirm Password"
           required
         />
-        <input type="button" value="Register" />
+        <input type="button" value="Register" onclick="doSignup()"/>
       </form>
+      <div id="signupResult" class="result-message"></div>
     </div>
   </body>
 </html>
