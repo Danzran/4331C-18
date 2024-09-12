@@ -110,10 +110,7 @@ form input[type="button"]:hover {
   color: #fff;
   border: none;
   cursor: pointer;
-}
-
-.form-container input[type="button"]:hover {
-  background-color: #555;
+  transition: background-color 0.3s ease;
 }
 
 input[type="submit"],
@@ -159,12 +156,13 @@ input[type="button"]:hover {
   width: 100%;
   padding: 10px;
   background-color: #333;
-  color: white;
+  color: #fff;
   border: none;
   cursor: pointer;
   border-radius: 4px;
   font-size: 16px;
   font-family: "Saira", sans-serif;
+  transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
@@ -179,6 +177,8 @@ a.add-contact-link {
   padding: 10px 20px;
   border-radius: 4px;
   text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 a.add-contact-link:hover {
@@ -193,7 +193,6 @@ a.add-contact-link:hover {
   color: white;
   padding: 10px 20px;
   border-radius: 4px;
-  text-decoration: none;
   font-size: 14px;
   font-weight: bold;
   transition: background-color 0.3s ease;
@@ -201,6 +200,7 @@ a.add-contact-link:hover {
 
 .logout-button:hover {
   background-color: #555;
+  text-decoration: none;
 }
 
 .signup-text {
