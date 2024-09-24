@@ -169,7 +169,7 @@ function doSignup(){
                         document.getElementById("signupResult").innerHTML = response.error;
                 }else {
                     document.getElementById("signupResult").innerHTML = response.message;
-                    document.getElementById("signupResult").classList.add("sucess");
+                    document.getElementById("signupResult").classList.add("success");
                     if(response.message === "User registered successfully"){
                         window.location.href = "login.html"
                         }
@@ -209,7 +209,7 @@ function addContact()
             if(this.readyState == 4 && this.status == 200)
             {
                 document.getElementById("addResult").innerHTML = "Contact created successfully."
-                document.getElementById("addResult").classList.add("sucess");
+                document.getElementById("addResult").classList.add("success");
             }
         }
         xhr.send(payload);
@@ -250,7 +250,7 @@ function editContact(contactID)
             if(this.readyState == 4 && this.status == 200)
             {
                 document.getElementById("editResult").innerHTML = "Contact updated successfully."
-                document.getElementById("editResult").classList.add("sucess");
+                document.getElementById("editResult").classList.add("success");
             }
         }
         xhr.send(payload);
