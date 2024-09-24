@@ -109,6 +109,7 @@ function doLogin()
                 if(userID < 1)
                 {
                     document.getElementById("loginResult").innerHTML = "Invalid username or password.";
+                    document.getElementById("loginResult").classList.add("error");
                     return;
                 }
 
@@ -142,11 +143,13 @@ function doSignup(){
 
     if(!firstname || !lastname || !username || !password || !confirmpassword){
         document.getElementById("signupResult").innerHTML = "Please fill out all fields";
+        document.getElementById("signupResult").classList.add("error");
         return;
     }
 
     if(password !== confirmpassword){
         document.getElementById("signupResult").innerHTML = "Passwords do not match";
+        document.getElementById("signupResult").classList.add("error");
         return;
     }
 
@@ -166,6 +169,7 @@ function doSignup(){
                         document.getElementById("signupResult").innerHTML = response.error;
                 }else {
                     document.getElementById("signupResult").innerHTML = response.message;
+                    document.getElementById("signupResult").classList.add("sucess");
                     if(response.message === "User registered successfully"){
                         window.location.href = "login.html"
                         }
@@ -188,6 +192,7 @@ function addContact()
     if(!firstName || !lastName || !email || !phone || !address)
     {
         document.getElementById("addResult").innerHTML = "Please fill out all fields!";
+        document.getElementById("addResult").classList.add("error");
         return;
     }
 
@@ -204,6 +209,7 @@ function addContact()
             if(this.readyState == 4 && this.status == 200)
             {
                 document.getElementById("addResult").innerHTML = "Contact created successfully."
+                document.getElementById("addResult").classList.add("sucess");
             }
         }
         xhr.send(payload);
@@ -227,6 +233,7 @@ function editContact(contactID)
     if(!firstName || !lastName || !email || !phone || !address)
     {
         document.getElementById("editResult").innerHTML = "Please fill out all fields!";
+        document.getElementById("editResult").classList.add("error");
         return;
     }
     
@@ -243,6 +250,7 @@ function editContact(contactID)
             if(this.readyState == 4 && this.status == 200)
             {
                 document.getElementById("editResult").innerHTML = "Contact updated successfully."
+                document.getElementById("editResult").classList.add("sucess");
             }
         }
         xhr.send(payload);

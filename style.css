@@ -10,7 +10,7 @@ h1 {
   color: #000000;
 }
 
-.centered-header {
+.center-header {
   text-align: center;
 }
 
@@ -18,6 +18,8 @@ h1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  width: 75px; 
+  height: 65px; 
 }
 
 table {
@@ -248,4 +250,12 @@ input,
 select,
 textarea {
   font-family: "Saira", sans-serif !important;
+}
+
+.error {
+  color: red;
+}
+
+.sucess{
+  color: green;
 }
