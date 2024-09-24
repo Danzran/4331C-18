@@ -10,18 +10,6 @@ h1 {
   color: #000000;
 }
 
-.center-header {
-  text-align: center;
-}
-
-.center-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 75px; 
-  height: 65px; 
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
